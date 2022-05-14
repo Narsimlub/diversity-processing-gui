@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LeaderDiversityService from "../services/LeaderDiversityService";
-export default class LeaderDiversityList extends Component {
+export default class CompanyLeaders extends Component {
     constructor(props) {
         super(props);
         this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
         this.retrieveTutorials = this.retrieveTutorials.bind(this);
         this.refreshList = this.refreshList.bind(this);
         this.setActiveTutorial = this.setActiveTutorial.bind(this);
+        this.id=this.props.match.params.id;
         //this.removeAllTutorials = this.removeAllTutorials.bind(this);
         //this.searchTitle = this.searchTitle.bind(this);
         this.state = {
+          //id: this.props.match.params.id,
           leaderDiversities: [],
           currentTutorial: null,
           currentIndex: -1,
@@ -27,7 +29,7 @@ export default class LeaderDiversityList extends Component {
         });
       }
       retrieveTutorials() {
-        LeaderDiversityService.getAllDiversityLeaders()
+        LeaderDiversityService.getAllDiversityLeadersUsingCompanyId(this.id)
           .then(response => {
             this.setState({
               leaderDiversities: response.data

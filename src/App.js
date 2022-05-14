@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import {  Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import CompanyDiversityList from "./components/CompanyDiversityList";
+import CompanyDiversityList1 from "./components/CompanyDiversityList1";
 import LeaderDiversityList from "./components/LeaderDiversityList";
+import CompanyLeaders from "./components/CompanyLeaders";
 
 class App extends Component {
   render() {
@@ -29,9 +30,10 @@ class App extends Component {
         <div className="container mt-3">
         
         <Routes>
-            <Route exact path="/companies" element={<CompanyDiversityList/>} />
+            <Route exact path="/companies" element={<CompanyDiversityList1/>} />
             <Route exact path="/leaders" element={<LeaderDiversityList/>} />
-           
+            <Route  path="/companyLeaders/:id" element={<CompanyLeaders/>} />
+            
         </Routes> 
         </div>
       </div>
