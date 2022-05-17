@@ -2,7 +2,7 @@ import { LeaderDiversity } from "./LeaderDiversity";
 
 export class CompanyDiversityInfo{
 
-    id:number=0;
+    id: number=0;
     dunsName:string="";
     dunsNumber:number=0;
     county:string="";

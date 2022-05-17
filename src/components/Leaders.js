@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LeaderDiversityService from "../services/LeaderDiversityService";
-export default class LeaderDiversityList extends Component {
+export default class Leaders extends Component {
     constructor(props) {
         super(props);
         this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
         this.retrieveTutorials = this.retrieveTutorials.bind(this);
         this.refreshList = this.refreshList.bind(this);
         this.setActiveTutorial = this.setActiveTutorial.bind(this);
-        //this.removeAllTutorials = this.removeAllTutorials.bind(this);
-        //this.searchTitle = this.searchTitle.bind(this);
+        this.searchTitle = this.searchTitle.bind(this);
         this.state = {
           leaderDiversities: [],
           currentTutorial: null,
@@ -17,6 +16,27 @@ export default class LeaderDiversityList extends Component {
           searchTitle: ""
         };
       }
+      const [page, setPage] = useState(1);
+      const [count, setCount] = useState(0);
+      const [pageSize, setPageSize] = useState(3);
+      const pageSizes = [10, 20, 50,100];
+      const onChangeSearchTitle = (e) => {
+      const searchTitle = e.target.value;
+      setSearchTitle(searchTitle);
+      };
+   getRequestParams = (searchTitle, page, pageSize) => {
+    let params = {};
+    if (searchTitle) {
+      params["title"] = searchTitle;
+    }
+    if (page) {
+      params["page"] = page - 1;
+    }
+    if (pageSize) {
+      params["size"] = pageSize;
+    }
+    return params;
+  };
       componentDidMount() {
         this.retrieveTutorials();
       }
@@ -74,6 +94,7 @@ export default class LeaderDiversityList extends Component {
             <th>Language</th>
             <th>Ethnicity</th>
             <th>IsLgbt</th>
+            <th>isVeteran</th>
             <th>Is Disable</th>
             <th>Is Percentage</th>
             <th>Salary</th>

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./CompanyDiversityList.css";
 import CompanyDiversityService from "../services/CompanyDiversityService";
-
 export default class CompanyDiversityList extends Component {
     constructor(props) {
         super(props);
@@ -11,12 +9,12 @@ export default class CompanyDiversityList extends Component {
         this.refreshList = this.refreshList.bind(this);
         this.setActiveTutorial = this.setActiveTutorial.bind(this);
        // this.removeAllTutorials = this.removeAllTutorials.bind(this);
-       // this.searchTitle = this.snpm earchTitle.bind(this);
+        this.searchTitle1 = "Infosys";
         this.state = {
           companyDiversityInfos: [],
           currentCompanyDiversityInfo: null,
           currentIndex: -1,
-          searchTitle: ""
+          searchTitle: "Infosys"
         };
       }
       componentDidMount() {
@@ -24,10 +22,39 @@ export default class CompanyDiversityList extends Component {
       }
       onChangeSearchTitle(e) {
         const searchTitle = e.target.value;
+        console.info("search..."+searchTitle);
+        this.searchTitle1 =searchTitle;
         this.setState({
           searchTitle: searchTitle
         });
       }
+      findByTitle(){
+        CompanyDiversityService.getCompanyByName('Infosys')
+        .then(response => {
+          this.setState({
+              companyDiversityInfos: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+        // this.retrieveTutorials1();
+      };
+
+      retrieveTutorials1() {
+        CompanyDiversityService.getCompanyByName(this.searchTitle1)
+          .then(response => {
+            this.setState({
+                companyDiversityInfos: response.data
+            });
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
+
       retrieveTutorials() {
         CompanyDiversityService.getAllCompanies()
           .then(response => {
@@ -47,6 +74,11 @@ export default class CompanyDiversityList extends Component {
           currentIndex: -1
         });
       }
+
+      viewLeaders(id){
+        this.props.history.push(`/companyLeaders/${id}`);
+      }
+      
       setActiveTutorial(companyDiversityInfo, index) {
         this.setState({
           currentCompanyDiversityInfo: companyDiversityInfo,
@@ -59,40 +91,59 @@ export default class CompanyDiversityList extends Component {
         
         const { searchTitle, companyDiversityInfos, currentcompanyDiversityInfo, currentIndex } = this.state;
     return (
-
-
       <div className="list row"> 
           <h1>Company Diversity List</h1>
-
-          <section class="grid-container">
-            <div class="grid-item">Company Name</div>
-            <div class="grid-item">Contact Name</div>
-            <div class="grid-item">E-mail</div>
-            <div class="grid-item">Action</div>
-           </section> 
-           
-          {companyDiversityInfos && companyDiversityInfos.map((companyDiversity, index) => (
-      
-           <section class="container" key={companyDiversity.id}>
-            <div class="grid-item">{companyDiversity.companyName}</div>
-            <div class="grid-item">{companyDiversity.mobileNumber}</div>
-            <div class="grid-item">{companyDiversity.emailId}</div>
-            <div class="grid-item">Show Leaders</div>
-            
-{/*             
-            {companyDiversity.leaders && companyDiversity.leaders.map((leader, index1) => (
-            <section class="container1" key={companyDiversity.id}>
-              <div class="item-a">{leader.name}</div>
-              <div class="item-b">{leader.companyName}</div>
-              <div class="item-c">{leader.mobileNumber}</div>
-              <div class="item-d">{leader.emailId}</div>
-              <div class="item-e">{leader.id} Show Leaders</div>
-            </section>
-             ))}  */}
-
-          </section>
-       ))}     
+          <div className="col-md-8">
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by Company name"
+            value={searchTitle}
+            onChange={this.onChangeSearchTitle}
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={this.findByTitle}
+            >
+              Search
+            </button>
+          </div>
         </div>
+      </div>
+
+          <table border="2">
+            <thead>
+              <th>Duns Name</th>
+              <th>Duns Number</th>
+              <th>county</th>
+              <th>phone</th>
+              <th>city</th>
+              <th>State</th>
+              <th>ZipCode</th>
+              <th>Action</th>
+            </thead> 
+          <tbody>
+          {companyDiversityInfos && companyDiversityInfos.map((companyDiversity, index) => (
+      <tr key={companyDiversity.id}>
+         
+           <td>{companyDiversity.dunsName}</td> 
+           <td>{companyDiversity.dunsNumber}</td>
+            <td>{companyDiversity.county}</td>
+            <td>{companyDiversity.phone}</td>
+            <td>{companyDiversity.city}</td>
+            <td>{companyDiversity.state}</td>
+            <td>{companyDiversity.city}</td>
+            <td><button onClick={ () => this.viewLeaders(companyDiversity.id)} >Leaders</button></td>
+         
+        
+      </tr>
+       ))}
+      </tbody>
+      </table>
+      </div>
       
     );
   

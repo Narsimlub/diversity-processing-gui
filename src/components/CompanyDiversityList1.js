@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CompanyDiversityService from "../services/CompanyDiversityService";
-export default class CompanyDiversityList extends Component {
+export default class CompanyDiversityList1 extends Component {
     constructor(props) {
         super(props);
         this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);

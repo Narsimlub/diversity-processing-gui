@@ -7,11 +7,11 @@ class LeaderDiversityService{
     }
 
     getLeaderDiversityInformation(leaderName:string){
-        return http.get('/leaders/$leaderName'); 
+        return http.get('/leaders/'+leaderName); 
     }
 
     getAllDiversityLeadersUsingCompanyId(companyId:string){
-        return http.get('/leaders-details/$companyId'); 
+        return http.get('/leaders-details/'+companyId); 
     }
 
     updateLeaderDiversityInformation(data){

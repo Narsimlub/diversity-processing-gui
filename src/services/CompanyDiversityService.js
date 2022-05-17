@@ -6,8 +6,12 @@ class CompanyDiversityService{
         return http.get("/companies"); 
     }
 
+    getAllCompaniesByData(params){
+        return http.get("/companies", { params }); 
+    }
+
     getCompanyByName(companyName:string){
-        return http.get('/companies/$companyName'); 
+        return http.get('/companies/'+companyName); 
     }
 
     updateCompanyDiversityInformation(data){
