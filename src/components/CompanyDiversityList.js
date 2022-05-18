@@ -8,13 +8,12 @@ export default class CompanyDiversityList extends Component {
         this.retrieveTutorials = this.retrieveTutorials.bind(this);
         this.refreshList = this.refreshList.bind(this);
         this.setActiveTutorial = this.setActiveTutorial.bind(this);
-       // this.removeAllTutorials = this.removeAllTutorials.bind(this);
-        this.searchTitle1 = "Infosys";
+        this.searchTitle1 = "";
         this.state = {
           companyDiversityInfos: [],
           currentCompanyDiversityInfo: null,
           currentIndex: -1,
-          searchTitle: "Infosys"
+          searchTitle: ""
         };
       }
       componentDidMount() {
@@ -22,14 +21,13 @@ export default class CompanyDiversityList extends Component {
       }
       onChangeSearchTitle(e) {
         const searchTitle = e.target.value;
-        console.info("search..."+searchTitle);
         this.searchTitle1 =searchTitle;
         this.setState({
           searchTitle: searchTitle
         });
       }
       findByTitle(){
-        CompanyDiversityService.getCompanyByName('Infosys')
+        CompanyDiversityService.getCompanyByName(this.searchTitle)
         .then(response => {
           this.setState({
               companyDiversityInfos: response.data
@@ -76,7 +74,7 @@ export default class CompanyDiversityList extends Component {
       }
 
       viewLeaders(id){
-        this.props.history.push(`/companyLeaders/${id}`);
+        this.props.history.push(`/viewLeaders/${id}`);
       }
       
       setActiveTutorial(companyDiversityInfo, index) {

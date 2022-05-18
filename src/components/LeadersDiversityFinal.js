@@ -2,16 +2,16 @@ import Pagination from "@material-ui/lab/Pagination";
 import { useTable } from "react-table";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 
-import CompanyDiversityService from "../services/CompanyDiversityService";
+import LeaderDiversityService from "../services/LeaderDiversityService";
 
-  const CompanyDiversityFinal = (props) => {
+  const LeadersDiversityFinal = (props) => {
     const [companies, setCompanies] = useState([]);
     const [searchTitle, setSearchTitle] = useState("");
     const companiesRef = useRef();
   
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, setPageSize] = useState(10);
   
     const pageSizes = [20,30, 50];
   
@@ -26,7 +26,9 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
       let params = {};
   
       if (searchTitle) {
-        params["companyName"] = searchTitle;
+        params["name"] = searchTitle;
+      }else{
+        params["name"] ="";
       }
   
       if (page) {
@@ -44,12 +46,12 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
       const params = getRequestParams(searchTitle, page, pageSize);
       console.info(searchTitle);
       console.info(params.searchTitle);
-      CompanyDiversityService.getAllCompanies()//getCompaniesByName(searchTitle)
+      LeaderDiversityService.getLeadersbyParams(params)
         .then((response) => {
-          const { companies } = response.data;
+          const { companies, totalPages } = response.data;
   
           setCompanies(companies);
-          setCount(1);
+          setCount(totalPages);
   
           console.log(response.data);
         })
@@ -87,28 +89,28 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
     const columns = useMemo(
       () => [
         {
-          Header: "Duns Name",
-          accessor: "dunsName",
+          Header: "Name",
+          accessor: "name",
         },
         {
-          Header: "Duns Number",
-          accessor: "dunsNumber",
+          Header: "Company Name",
+          accessor: "companyName",
         },
         {
-          Header: "County",
-          accessor: "county",
+          Header: "Gender",
+          accessor: "gender",
         },,
         {
-          Header: "Phone",
-          accessor: "phone",
+          Header: "Ethnicity",
+          accessor: "ethnicity",
         },
         {
-          Header: "city",
-          accessor: "city",
+          Header: "IsLgbt",
+          accessor: "isLgbt",
         },
         {
-          Header: "State",
-          accessor: "state",
+          Header: "IsVeteran",
+          accessor: "isVeteran",
         },
         {
           Header: "Actions",
@@ -146,7 +148,7 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
             <input
               type="text"
               className="form-control"
-              placeholder="Search by title"
+              placeholder="Name"
               value={searchTitle}
               onChange={onChangeSearchTitle}
             />
@@ -163,7 +165,7 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
         </div>
   
         <div className="col-md-12 list">
-          {/* <div className="mt-3">
+           <div className="mt-3">
             {"Items per Page: "}
             <select onChange={handlePageSizeChange} value={pageSize}>
               {pageSizes.map((size) => (
@@ -183,7 +185,7 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
               shape="rounded"
               onChange={handlePageChange}
             />
-          </div> */}
+          </div> 
   
           <table
             className="table table-striped table-bordered"
@@ -221,4 +223,4 @@ import CompanyDiversityService from "../services/CompanyDiversityService";
     );
   };
   
-  export default CompanyDiversityFinal;
+  export default LeadersDiversityFinal;

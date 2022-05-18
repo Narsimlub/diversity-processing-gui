@@ -10,6 +10,12 @@ class LeaderDiversityService{
         return http.get('/leaders/'+leaderName); 
     }
 
+    getLeadersbyParams(params:any){
+        return http.get('/leaders/', { params }); 
+    }
+
+    
+
     getAllDiversityLeadersUsingCompanyId(companyId:string){
         return http.get('/leaders-details/'+companyId); 
     }

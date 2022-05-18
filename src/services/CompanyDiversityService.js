@@ -7,10 +7,17 @@ class CompanyDiversityService{
     }
 
     getAllCompaniesByData(params){
+        console.info(params);
         return http.get("/companies", { params }); 
     }
 
     getCompanyByName(companyName:string){
+        console.info(companyName);
+        return http.get('/companies/'+companyName); 
+    }
+
+    getCompaniesByName(companyName:string){
+        console.info(companyName);
         return http.get('/companies/'+companyName); 
     }
 

@@ -123,18 +123,18 @@ export default class LeadersDiv extends Component {
       <div className="list row"> 
       <h1>Leaders</h1>
       <div className="col-md-8">
-    <div className="input-group mb-3">
+    <div className="input-group mb-6">
     <input
         type="text"
         className="form-control"
-        placeholder="Search by name"
+        placeholder="name"
         value={searchName}
         onChange={this.onChangeSearchName}
       />
       <input
         type="text"
         className="form-control"
-        placeholder="Search by Ethnicity"
+        placeholder="Ethnicity"
         value={searchEthnicity}
         onChange={this.onChangeSearchEthnicity}
       />
@@ -142,7 +142,7 @@ export default class LeadersDiv extends Component {
       <input
         type="text"
         className="form-control"
-        placeholder="Search by Gender"
+        placeholder="Gender"
         value={searchGender}
         onChange={this.onChangeSearchGender}
       />
@@ -150,28 +150,28 @@ export default class LeadersDiv extends Component {
       <input
         type="text"
         className="form-control"
-        placeholder="Search by sharePercentage"
+        placeholder="sharePercentage"
         value={searchSharePercentage}
         onChange={this.onChangeSearchSharePercentage}
       />
       <input
         type="text"
         className="form-control"
-        placeholder="Search by IsDisable"
+        placeholder="IsDisable"
         value={searchIsDisable}
         onChange={this.onChangeSearchIsDisable}
       />
       <input
         type="text"
         className="form-control"
-        placeholder="Search by IsLgbt"
+        placeholder="IsLgbt"
         value={searchIsLgbt}
         onChange={this.onChangeSearchIsLgbt}
       />
       <input
         type="text"
         className="form-control"
-        placeholder="Search by IsVeteran"
+        placeholder="IsVeteran"
         value={searchIsVeteran}
         onChange={this.onChangeSearchIsVeteran}
       />
